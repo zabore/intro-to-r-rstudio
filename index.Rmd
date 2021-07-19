@@ -1,0 +1,51 @@
+---
+title: "intro-to-r-rstudio"
+author: "Emily C. Zabor"
+date: "July 29, 2021"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css, custom.css]
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:9
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+set.seed(78987)
+library(xaringanthemer)
+
+style_mono_accent(
+  base_color = ezfun::ccf_palette("main")[1]
+)
+
+# xaringan::inf_mr() 
+options(htmltools.dir.version = FALSE) 
+```
+
+
+class: inverse, center, title-slide, middle
+
+# Introduction to R and RStudio
+
+### Emily C. Zabor
+
+#### CCLCM Molecular Medicine PhD program
+
+#### July 29, 2021
+
+<p align="center"><img src="images/CC_hires_r.png" width=30%></p>
+
+
+---
+```{r child='01-installation.Rmd'}
+```
+
+
+---
+```{r child='02-using-rstudio.Rmd'}
+```
+

@@ -1,0 +1,8 @@
+[1,"Installing 'BiocManager' ...\r\n"]
+[1,"\r\n"]
+[2,"Installing package into 'C:/Users/zabore2/Documents/R/win-library/4.1'\r\n(as 'lib' is unspecified)\r\n"]
+[1,"package 'BiocManager' successfully unpacked and MD5 sums checked\r\n"]
+[1,"\r\n"]
+[1,"The downloaded binary packages are in\r\n"]
+[1,"\tC:\\Users\\zabore2\\AppData\\Local\\Temp\\RtmpCoqqPc\\downloaded_packages\r\n"]
+[2,"trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/BiocManager_1.30.16.zip'\r\nContent type 'application/zip' length 328577 bytes (320 KB)\r\n==================================================\r\ndownloaded 320 KB\r\n\r\n\r\n\r\n<U+2714> Package 'BiocManager' successfully installed.\r\n"]

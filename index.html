@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>intro-to-r-rstudio</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emily C. Zabor" />
+    <meta name="date" content="2021-07-29" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: inverse, center, title-slide, middle
+
+# Introduction to R and RStudio
+
+### Emily C. Zabor
+
+#### CCLCM Molecular Medicine PhD program
+
+#### July 29, 2021
+
+&lt;p align="center"&gt;&lt;img src="images/CC_hires_r.png" width=30%&gt;&lt;/p&gt;
+
+
+---
+
+class: inverse, center, middle
+# Introduction and Installation
+
+---
+# Introduction to R
+
+&lt;p align="left"&gt;&lt;img src="images/Rlogo.png" width=10%&gt;
+
+- Free, open-source software environment for statistical computing and graphics maintained by an international team of developers
+- Functionality is provided through packages
+- Base R comes pre-loaded with specific packages
+- Other packages must be installed from repositories such as CRAN, GitHub, or Bioconductor, among others
+
+
+---
+# Installing R
+
+&lt;p align="center"&gt;&lt;img src="images/install-r.png" width=100%&gt;
+
+- Visit [The Comprehensive R Archive Network](https://cran.r-project.org/)
+- Follow the link that describes your operating system: Windows, Mac, or Linux
+- We will focus on installation for Windows and Mac
+- R should already be installed on all CCF Linux servers
+
+
+---
+# Installing R on Windows
+
+Click the “Download R for Windows” link.
+
+&lt;p align="center"&gt;&lt;img src="images/install-r-windows0.png" width=100%&gt;
+
+
+---
+# Installing R on Windows
+
+Click the “base” link.
+
+&lt;p align="center"&gt;&lt;img src="images/install-r-windows1.png" width=100%&gt;
+
+
+---
+# Installing R on Windows
+
+Click the first link at the top of the new page. This link should say something like “Download R 4.1.0 for Windows,” except the 4.1.0 will be replaced by the most current version of R. 
+
+&lt;p align="center"&gt;&lt;img src="images/install-r-windows2.png" width=100%&gt;
+
+
+---
+# Installing R on Windows
+
+The link downloads an installer program, which installs the most up-to-date version of R for Windows. Run this program and step through the installation wizard that appears. The wizard will install R into your program files folders and place a shortcut in your Start menu. 
+
+&lt;p align="center"&gt;&lt;img src="images/install-r-windows3.png" width=40%&gt;
+
+
+---
+# Installing R on Mac
+
+Click the “Download R for (Mac) OS X” link.
+
+&lt;p align="center"&gt;&lt;img src="images/install-r-mac0.png" width=100%&gt;
+
+
+---
+# Installing R on Mac
+
+Click on the "R-4.1.0.pkg" package link. The 4.1.0 will be replaced by the most current version of R. 
+
+&lt;p align="center"&gt;&lt;img src="images/install-r-mac1.png" width=100%&gt;
+
+
+---
+# Installing R on Mac
+
+An installer will download to guide you through the installation process. The installer lets you customize your installation, but the defaults will be suitable for most users. 
+
+
+---
+# Introduction to RStudio
+
+&lt;p align="left"&gt;&lt;img src="images/RStudio-Logo-Flat.png" width=20%&gt;
+
+- An Integrated Development Environment (IDE) that runs R
+- Allows users to develop and edit programs
+- Offers higher quality graphics and a more user-friendly interface
+
+
+---
+# Installing RStudio
+
+Go to the website for [RStudio](https://www.rstudio.com/products/rstudio/download).
+
+&lt;p align="center"&gt;&lt;img src="images/install-rstudio0.png" width=40%&gt;
+
+
+---
+# Installing RStudio
+
+Click the "Download" button under RStudio Desktop.
+
+&lt;p align="center"&gt;&lt;img src="images/install-rstudio1.png" width=100%&gt;
+
+
+---
+# Installing RStudio
+
+And select the appropriate installer for your operating system.
+
+&lt;p align="center"&gt;&lt;img src="images/install-rstudio2.png" width=80%&gt;
+
+
+---
+
+class: inverse, center, middle
+# Using RStudio
+
+
+---
+# Open R and take a look
+
+The R Graphical User Interface (RGui) will contain a window labeled R Console. You can type code directly into the console and get results.
+
+&lt;p align="center"&gt;&lt;img src="images/RGui.png" width=50%&gt;
+
+
+---
+# Open R and take a look
+
+
+---
+# Open RStudio and take a look
+
+&lt;p align="center"&gt;&lt;img src="images/RStudio-panes.png" width=90%&gt;
+
+
+---
+# Open RStudio and take a look
+
+
+---
+# RStudio Tips
+
+- Always save your R Script code
+
+  - Go to File &gt; New File &gt; R script to open a new R Script
+  - Go to File &gt; Save to save it somewhere memorable with a useful name
+
+- There are several ways to run code: 
+
+  1. Place your cursor next to the line you want to run and hit Ctrl(Cmd)+Enter on your keyboard
+  2. Place your cursor next to the line you want to run and hit the "Run" button
+  3. Highlight multiple lines of code and use one of the previous options
+
+- Get help by typing `?fnname` where `fnname` is the name of the function of interest
+  
+  - e.g. to see the help file for the mean function, type `?mean`
+
+
+---
+# Loading data
+
+The most common data format we work with is Excel. 
+
+How to format data to load into R:
+
+1. One dataset at a time
+2. Include a single row of column headers
+3. Use simple column headers - these will be transformed into variable names by R
+4. Usually one row per patient/sample, exceptions are repeated measures
+
+
+---
+# Loading data
+
+Approach #1:
+
+Use the "readxl" package. 
+
+First install the package from CRAN using `install.packages()`. 
+    
+
+```r
+install.packages("readxl")
+```
+
+Then load the newly installed package with a call to `library()`.
+  
+
+```r
+library(readxl)
+```
+  
+And finally use the `read_excel()` function with the appropriate file path to read in the data and save it as an object called "mydf".
+  
+
+```r
+mydf &lt;- read_excel("H:/MMED/intro-to-r-rstudio/rstudio-demo/data/StatsDataSet-2A.xlsx")
+```
+    
+(Note: R treats the \\ as a special character so you either need to use / or \\\ in file paths)
+
+
+---
+# Side note: installing R packages
+
+1. From CRAN:
+
+
+```r
+install.packages("readxl")
+```
+
+
+---
+# Side note: installing R packages
+
+2. From GitHub. First, you need to install the {remotes} package from CRAN:
+    
+
+```r
+install.packages("remotes")
+```
+
+Then you can load the GitHub package of interest using `install_github("username/repository")`. For example, to load the {ezfun} package from my GitHub account at username "zabore":
+
+
+```r
+library(remotes)
+install_github("zabore/ezfun")
+```
+
+Or, you can avoid a call to `library()` if you only plan to use a library once or want to avoid conflicts by using `library::function()`:
+
+
+```r
+remotes::install_github("zabore/ezfun")
+```
+
+
+---
+# Side note: installing R packages
+    
+3. From Bioconductor. First, install the {BiocManager} package from CRAN:
+
+
+```r
+install.packages("BiocManager")
+```
+
+Then install, for example, the {GenomicFeatures} package using the `install` function:
+
+
+```r
+BiocManager::install("GenomicFeatures")
+```
+    
+
+---
+# Loading data
+
+Approach #2:
+    
+Save the file as .csv and read in with base R
+
+Advantages: removes some of the possible formatting pitfalls associated with Excel files, and you don't need any special packages to read this format.
+
+First, open the Excel file.
+    
+Go to File &gt; Save As and select "CSV (Comma delimited)" from the "Save as type" drop down.
+    
+Then use the `read.csv()` function with the appropriate file path to read in the data and save it as an object called "mydf2".
+    
+
+```r
+mydf2 &lt;- read.csv("H:/MMED/intro-to-r-rstudio/rstudio-demo/data/StatsDataSet-2A.csv")
+```
+
+
+---
+# R projects
+
+- Put all the files related to a single project (e.g. data, code, figures, notes, etc) in a designated folder. 
+- Okay to use subfolders as desired
+- Got to File &gt; New Project...
+
+&lt;p align="center"&gt;&lt;img src="images/RStudio-create-project.png" width=50%&gt;
+
+
+---
+# R projects
+
+- Now all file paths will be relative to the location of the R project. So you can simply use:
+
+  
+  ```r
+  mydf2 &lt;- read.csv("rstudio-demo/data/StatsDataSet-2A.csv")
+  ```
+
+- You can move the project folder to a different location on your computer, or to a different computer entirely, and your file paths should still work as long as you are working in the project.
+- Can open multiple sessions of RStudio using projects so that you can work on two (or more) projects simultaneously.
+- Every time you open the project, you get a fresh RStudio session.
+
+
+---
+# The {here} package
+
+
+```r
+install.packages("here")
+library(here)
+```
+
+- Makes it easy to reference subfolders in your main project folder
+- No need to worry about the \\ issue
+- Code will work even outside of the project
+- Writes paths safely across operating systems so code is more reproducible
+
+To use the {here} package, simply use the function `here` and mention the filename of interest, or place any subfolders ahead of the filename separated by commas, so that "rstudio-demo/data/StatsDataSet-2A.csv" becomes:
+
+
+```r
+mydf2 &lt;- read.csv(here("rstudio-demo", "data", "StatsDataSet-2A.csv"))
+```
+
+
+---
+# Basic statistics
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

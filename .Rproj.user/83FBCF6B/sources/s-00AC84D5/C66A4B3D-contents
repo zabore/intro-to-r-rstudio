@@ -1,0 +1,111 @@
+class: inverse, center, middle
+# Introduction and Installation
+
+---
+# Introduction to R
+
+<p align="left"><img src="images/Rlogo.png" width=10%>
+
+- Free, open-source software environment for statistical computing and graphics maintained by an international team of developers
+- Functionality is provided through packages
+- Base R comes pre-loaded with specific packages
+- Other packages must be installed from repositories such as CRAN, GitHub, or Bioconductor, among others
+
+
+---
+# Installing R
+
+<p align="center"><img src="images/install-r.png" width=100%>
+
+- Visit [The Comprehensive R Archive Network](https://cran.r-project.org/)
+- Follow the link that describes your operating system: Windows, Mac, or Linux
+- We will focus on installation for Windows and Mac
+- R should already be installed on all CCF Linux servers
+
+
+---
+# Installing R on Windows
+
+Click the “Download R for Windows” link.
+
+<p align="center"><img src="images/install-r-windows0.png" width=100%>
+
+
+---
+# Installing R on Windows
+
+Click the “base” link.
+
+<p align="center"><img src="images/install-r-windows1.png" width=100%>
+
+
+---
+# Installing R on Windows
+
+Click the first link at the top of the new page. This link should say something like “Download R 4.1.0 for Windows,” except the 4.1.0 will be replaced by the most current version of R. 
+
+<p align="center"><img src="images/install-r-windows2.png" width=100%>
+
+
+---
+# Installing R on Windows
+
+The link downloads an installer program, which installs the most up-to-date version of R for Windows. Run this program and step through the installation wizard that appears. The wizard will install R into your program files folders and place a shortcut in your Start menu. 
+
+<p align="center"><img src="images/install-r-windows3.png" width=40%>
+
+
+---
+# Installing R on Mac
+
+Click the “Download R for (Mac) OS X” link.
+
+<p align="center"><img src="images/install-r-mac0.png" width=100%>
+
+
+---
+# Installing R on Mac
+
+Click on the "R-4.1.0.pkg" package link. The 4.1.0 will be replaced by the most current version of R. 
+
+<p align="center"><img src="images/install-r-mac1.png" width=100%>
+
+
+---
+# Installing R on Mac
+
+An installer will download to guide you through the installation process. The installer lets you customize your installation, but the defaults will be suitable for most users. 
+
+
+---
+# Introduction to RStudio
+
+<p align="left"><img src="images/RStudio-Logo-Flat.png" width=20%>
+
+- An Integrated Development Environment (IDE) that runs R
+- Allows users to develop and edit programs
+- Offers higher quality graphics and a more user-friendly interface
+
+
+---
+# Installing RStudio
+
+Go to the website for [RStudio](https://www.rstudio.com/products/rstudio/download).
+
+<p align="center"><img src="images/install-rstudio0.png" width=40%>
+
+
+---
+# Installing RStudio
+
+Click the "Download" button under RStudio Desktop.
+
+<p align="center"><img src="images/install-rstudio1.png" width=100%>
+
+
+---
+# Installing RStudio
+
+And select the appropriate installer for your operating system.
+
+<p align="center"><img src="images/install-rstudio2.png" width=80%>

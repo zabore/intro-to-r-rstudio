@@ -162,6 +162,12 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 ---
 # Open R and take a look
 
+We'll see how to:
+
+- Assign values to an object
+- Perform a function on that object
+- Plot
+
 
 ---
 # Open RStudio and take a look
@@ -171,6 +177,14 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 
 ---
 # Open RStudio and take a look
+
+We'll see how to:
+
+- Create a new R script
+- Add some code to it
+- Run the code
+- View help files
+- Save the R Script
 
 
 ---
@@ -195,7 +209,7 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 ---
 # Loading data
 
-The most common data format we work with is Excel. 
+The most common data format we work with is **Excel**. 
 
 How to format data to load into R:
 
@@ -208,9 +222,9 @@ How to format data to load into R:
 ---
 # Loading data
 
-Approach #1:
+**Approach #1**:
 
-Use the "readxl" package. 
+Use the {readxl} package. 
 
 First install the package from CRAN using `install.packages()`. 
     
@@ -239,7 +253,7 @@ mydf &lt;- read_excel("H:/MMED/intro-to-r-rstudio/rstudio-demo/data/StatsDataSet
 ---
 # Side note: installing R packages
 
-From CRAN:
+**From CRAN**:
 
 
 ```r
@@ -250,7 +264,9 @@ install.packages("readxl")
 ---
 # Side note: installing R packages
 
-From GitHub. First, you need to install the {remotes} package from CRAN:
+**From GitHub**. 
+
+First, you need to install the {remotes} package from CRAN:
     
 
 ```r
@@ -276,7 +292,9 @@ remotes::install_github("zabore/ezfun")
 ---
 # Side note: installing R packages
     
-From Bioconductor. First, install the {BiocManager} package from CRAN:
+**From Bioconductor**. 
+
+First, install the {BiocManager} package from CRAN:
 
 
 ```r
@@ -294,7 +312,7 @@ BiocManager::install("GenomicFeatures")
 ---
 # Loading data
 
-Approach #2:
+**Approach #2**:
     
 Save the file as .csv and read in with base R
 
@@ -368,11 +386,10 @@ class: inverse, center, middle
 ---
 # Topics covered
 
-- Descriptive statistics
 - Fisher's exact test and chi-squared test for contingency table data
 - Wilcoxon rank sum test and Kruskal-Wallis test for non-normally distributed continuous data
 - T-test and ANOVA for normally distributed continuous data
-- Wilcoxon signed rank test, paired t-test for paired data
+- Wilcoxon signed rank test and paired t-test for paired data
 
 
 ---
@@ -381,8 +398,7 @@ class: inverse, center, middle
 
 ```r
 cat1 &lt;- readxl::read_excel(
-  here::here("rstudio-demo", "data", "StatsDataSet-1A.xlsx")
-  )
+  here::here("rstudio-demo", "data", "StatsDataSet-1A.xlsx"))
 ```
 
 ```
@@ -404,7 +420,7 @@ cat1
 
 Notes:
 
-- R requires column names for all data columns, so you'll see that a name "...1" was automatically supplied for the column that didn't have a name. 
+- R requires column names for all data columns, so you'll see a message stating that "...1" was automatically supplied for the column that didn't have a name. 
 - By default R considers anything in the top row to be column names and anything in following rows to be data.
 
 
@@ -452,13 +468,11 @@ cat1_mat
 
 
 ---
-# Convert to a matrix for testing
-
-Notes:
+# Tips
 
 - The rows and columns of a dataframe can be referenced by name or position within square brackets `[rows, columns]`
 - So `cat1[1, 2]` refers to the first row and second column
-- Above, `cat1[, 2:3]` refers to all rows (first argument left blank) and columns 2 through 3
+- On the previous slide, `cat1[, 2:3]` refers to all rows (first argument left blank) and columns 2 through 3
 - Non-consecutive rows or columns could be referenced as, for example, `cat1[, c(1, 3)]` for all rows and the first and third column
 - `cat1[1, "Red hair"]` would give the "Red hair" column for the first row (i.e. Country = Irish)
 

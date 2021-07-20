@@ -13,6 +13,12 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 ---
 # Open R and take a look
 
+We'll see how to:
+
+- Assign values to an object
+- Perform a function on that object
+- Plot
+
 
 ---
 # Open RStudio and take a look
@@ -22,6 +28,14 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 
 ---
 # Open RStudio and take a look
+
+We'll see how to:
+
+- Create a new R script
+- Add some code to it
+- Run the code
+- View help files
+- Save the R Script
 
 
 ---
@@ -46,7 +60,7 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 ---
 # Loading data
 
-The most common data format we work with is Excel. 
+The most common data format we work with is **Excel**. 
 
 How to format data to load into R:
 
@@ -59,9 +73,9 @@ How to format data to load into R:
 ---
 # Loading data
 
-Approach #1:
+**Approach #1**:
 
-Use the "readxl" package. 
+Use the {readxl} package. 
 
 First install the package from CRAN using `install.packages()`. 
     
@@ -87,7 +101,7 @@ mydf <- read_excel("H:/MMED/intro-to-r-rstudio/rstudio-demo/data/StatsDataSet-2A
 ---
 # Side note: installing R packages
 
-From CRAN:
+**From CRAN**:
 
 ```{r eval = FALSE}
 install.packages("readxl")
@@ -97,7 +111,9 @@ install.packages("readxl")
 ---
 # Side note: installing R packages
 
-From GitHub. First, you need to install the {remotes} package from CRAN:
+**From GitHub**. 
+
+First, you need to install the {remotes} package from CRAN:
     
 ```{r eval = FALSE}
 install.packages("remotes")
@@ -120,7 +136,9 @@ remotes::install_github("zabore/ezfun")
 ---
 # Side note: installing R packages
     
-From Bioconductor. First, install the {BiocManager} package from CRAN:
+**From Bioconductor**. 
+
+First, install the {BiocManager} package from CRAN:
 
 ```{r eval = FALSE}
 install.packages("BiocManager")
@@ -136,7 +154,7 @@ BiocManager::install("GenomicFeatures")
 ---
 # Loading data
 
-Approach #2:
+**Approach #2**:
     
 Save the file as .csv and read in with base R
 

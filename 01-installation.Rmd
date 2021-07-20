@@ -1,6 +1,7 @@
 class: inverse, center, middle
 # Introduction and Installation
 
+
 ---
 # Introduction to R
 

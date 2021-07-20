@@ -49,3 +49,8 @@ class: inverse, center, title-slide, middle
 ```{r child='02-using-rstudio.Rmd'}
 ```
 
+
+---
+```{r child='03-rstudio-basic-stats.Rmd'}
+```
+

@@ -34,6 +34,7 @@ class: inverse, center, title-slide, middle
 class: inverse, center, middle
 # Introduction and Installation
 
+
 ---
 # Introduction to R
 
@@ -238,7 +239,7 @@ mydf &lt;- read_excel("H:/MMED/intro-to-r-rstudio/rstudio-demo/data/StatsDataSet
 ---
 # Side note: installing R packages
 
-1. From CRAN:
+From CRAN:
 
 
 ```r
@@ -249,7 +250,7 @@ install.packages("readxl")
 ---
 # Side note: installing R packages
 
-2. From GitHub. First, you need to install the {remotes} package from CRAN:
+From GitHub. First, you need to install the {remotes} package from CRAN:
     
 
 ```r
@@ -275,7 +276,7 @@ remotes::install_github("zabore/ezfun")
 ---
 # Side note: installing R packages
     
-3. From Bioconductor. First, install the {BiocManager} package from CRAN:
+From Bioconductor. First, install the {BiocManager} package from CRAN:
 
 
 ```r
@@ -359,7 +360,487 @@ mydf2 &lt;- read.csv(here("rstudio-demo", "data", "StatsDataSet-2A.csv"))
 
 
 ---
-# Basic statistics
+
+class: inverse, center, middle
+# RStudio for Basic Statistics
+
+
+---
+# Topics covered
+
+- Descriptive statistics
+- Fisher's exact test and chi-squared test for contingency table data
+- Wilcoxon rank sum test and Kruskal-Wallis test for non-normally distributed continuous data
+- T-test and ANOVA for normally distributed continuous data
+- Wilcoxon signed rank test, paired t-test for paired data
+
+
+---
+# Load the contingency table data
+
+
+```r
+cat1 &lt;- readxl::read_excel(
+  here::here("rstudio-demo", "data", "StatsDataSet-1A.xlsx")
+  )
+```
+
+```
+## New names:
+## * `` -&gt; ...1
+```
+
+```r
+cat1
+```
+
+```
+## # A tibble: 2 x 3
+##   ...1    `Red hair` `Not red hair`
+##   &lt;chr&gt;        &lt;dbl&gt;          &lt;dbl&gt;
+## 1 Irish           30             70
+## 2 Italian         10             90
+```
+
+Notes:
+
+- R requires column names for all data columns, so you'll see that a name "...1" was automatically supplied for the column that didn't have a name. 
+- By default R considers anything in the top row to be column names and anything in following rows to be data.
+
+
+---
+# Load the contingency table data
+
+First, let's rename that column so that it has a useful name:
+
+
+```r
+library(dplyr)
+cat1 &lt;- rename(cat1, Country = ...1)
+
+cat1
+```
+
+```
+## # A tibble: 2 x 3
+##   Country `Red hair` `Not red hair`
+##   &lt;chr&gt;        &lt;dbl&gt;          &lt;dbl&gt;
+## 1 Irish           30             70
+## 2 Italian         10             90
+```
+
+
+---
+# Convert to a matrix for testing
+
+In this case, with aggregated data, we need to convert this 2x2 table to a matrix of numeric values to apply the tests of interest.
+
+This basically just means removing the first column that contains the country, and converting from a dataframe (or tibble) to a matrix.
+
+
+```r
+cat1_mat &lt;- as.matrix(cat1[, 2:3])
+
+cat1_mat
+```
+
+```
+##      Red hair Not red hair
+## [1,]       30           70
+## [2,]       10           90
+```
+
+
+---
+# Convert to a matrix for testing
+
+Notes:
+
+- The rows and columns of a dataframe can be referenced by name or position within square brackets `[rows, columns]`
+- So `cat1[1, 2]` refers to the first row and second column
+- Above, `cat1[, 2:3]` refers to all rows (first argument left blank) and columns 2 through 3
+- Non-consecutive rows or columns could be referenced as, for example, `cat1[, c(1, 3)]` for all rows and the first and third column
+- `cat1[1, "Red hair"]` would give the "Red hair" column for the first row (i.e. Country = Irish)
+
+
+---
+# Fisher's exact test
+
+We can test the null hypothesis of no association between country and hair color by performing a Fisher's exact test.
+
+
+```r
+fisher.test(x = cat1_mat)
+```
+
+```
+## 
+## 	Fisher's Exact Test for Count Data
+## 
+## data:  cat1_mat
+## p-value = 0.0006504
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  1.684537 9.405984
+## sample estimates:
+## odds ratio 
+##   3.831525
+```
+
+
+---
+# Chi-squared test
+
+Alternatively, we can use a chi-squared test, since all expected cell counts are &gt;=5.
+
+
+```r
+chisq.test(x = cat1_mat)
+```
+
+```
+## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  cat1_mat
+## X-squared = 11.281, df = 1, p-value = 0.0007829
+```
+
+
+---
+# Tips
+
+- Arguments are processed in order in R functions. 
+- You can supply the arguments in any order if you specify the names.
+- If you do not specify the argument names, the arguments must be supplied in order
+
+Here are all of the arguments available for the `fisher.test()` function:
+
+
+```r
+fisher.test(x, y = NULL, workspace = 200000, hybrid = FALSE,
+            hybridPars = c(expect = 5, percent = 80, Emin = 1),
+            control = list(), or = 1, alternative = "two.sided",
+            conf.int = TRUE, conf.level = 0.95,
+            simulate.p.value = FALSE, B = 2000)
+```
+
+So `fisher.test(x = cat1_mat)` and `fisher.test(cat1_mat)` are equivalent.
+
+If you wanted to change to a one-sided alternative:
+
+- `fisher.test(cat1_mat, alternative = "greater")` works
+- `fisher.test(x = cat1_mat, alternative = "greater")` works
+- `fisher.test(alternative = "greater", x = cat1_mat)` works
+- `fisher.test(cat1_mat, "greater")` will not work, since `alternative` is not the second argument.
+
+
+---
+# Load the continuous data with two groups
+
+These data are formatted with two columns - Sex and HDL - and each row contains the data for one subject.
+
+
+```r
+cont1 &lt;- readxl::read_excel(
+  here::here("rstudio-demo", "data", "StatsDataSet-2B.xlsx")
+  )
+
+cont1
+```
+
+```
+## # A tibble: 24 x 2
+##    Sex      HDL
+##    &lt;chr&gt;  &lt;dbl&gt;
+##  1 Female    22
+##  2 Female    33
+##  3 Female    79
+##  4 Female    97
+##  5 Female    60
+##  6 Female    87
+##  7 Female    78
+##  8 Female    83
+##  9 Female    80
+## 10 Female    78
+## # ... with 14 more rows
+```
+
+
+---
+# Visually check the distribution
+
+For such a small sample size (n=24) we would not expect normality to hold - we usually require at least 30 samples to perform tests that rely on the normality assumption. However, we can examine a histogram to check.
+
+
+```r
+hist(cont1$HDL)
+```
+
+![](index_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+
+---
+# Wilcoxon rank-sum test
+
+a.k.a. Mann-Whitney test
+
+We can test the null hypothesis of no association between sex and HDL.
+
+
+```r
+wilcox.test(HDL ~ Sex, data = cont1)
+```
+
+```
+## Warning in wilcox.test.default(x = c(22, 33, 79, 97, 60, 87, 78, 83, 80, :
+## cannot compute exact p-value with ties
+```
+
+```
+## 
+## 	Wilcoxon rank sum test with continuity correction
+## 
+## data:  HDL by Sex
+## W = 113.5, p-value = 0.01611
+## alternative hypothesis: true location shift is not equal to 0
+```
+
+The warning message tells us that there are ties, or observations with the same value, in the data. So a normal approximation will be used instead of an exact p-value.
+
+
+---
+# T-test
+
+For demonstration purposes, we will also apply the t-test to these data.
+
+
+```r
+t.test(HDL ~ Sex, data = cont1)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  HDL by Sex
+## t = 2.1371, df = 18.18, p-value = 0.04642
+## alternative hypothesis: true difference in means between group Female and group Male is not equal to 0
+## 95 percent confidence interval:
+##   0.2509778 28.1965747
+## sample estimates:
+## mean in group Female   mean in group Male 
+##             69.76923             55.54545
+```
+
+
+---
+# Tips
+
+- For the preceding two tests we used the `formula` option to supply the information for the test
+- A formula in R looks like `LHS ~ RHS` where the left-hand side is typically an outcome variable or dependent variable and the right-hand side is the independent variable.
+- For multivariable regression, you can specify formulas in the format `Y ~ X1 + X2 + X3` when there is more than one independent variable.
+- You must also supply the name of the dataset to the `data = ` argument so that R knows where to look to find the specified variables.
+- R is case sensitive so "sex" is not the same as "SEX" or "Sex". This holds true for both variable names and variable values - e.g. "Female" and "female" would be considered different values for sex
+
+
+---
+# Load the continuous data for &gt;2 groups
+
+These data are formatted with two columns - Strain and Atherosclerosis - and each row contains the data for one subject.
+
+
+```r
+cont2 &lt;- readxl::read_excel(
+  here::here("rstudio-demo", "data", "StatsDataSet-3.xlsx"))
+cont2
+```
+
+```
+## # A tibble: 87 x 2
+##    Strain Atherosclerosis
+##    &lt;chr&gt;            &lt;dbl&gt;
+##  1 AA               13383
+##  2 AA               17935
+##  3 AA                7311
+##  4 AA               21819
+##  5 AA              118014
+##  6 AA               45490
+##  7 AA               52811
+##  8 AA               20820
+##  9 AA               94141
+## 10 AA              127773
+## # ... with 77 more rows
+```
+
+
+---
+# Kruskal-Wallis test
+
+A generalization of the Wilcoxon rank-sum/Mann-Whitney test for &gt;2 groups
+
+
+```r
+kruskal.test(Atherosclerosis ~ Strain, cont2)
+```
+
+```
+## 
+## 	Kruskal-Wallis rank sum test
+## 
+## data:  Atherosclerosis by Strain
+## Kruskal-Wallis chi-squared = 15.186, df = 2, p-value = 0.000504
+```
+
+
+---
+# ANOVA
+
+For demonstration purposes we will also perform ANOVA (without checking the normality assumption).
+
+
+```r
+lm_mod &lt;- lm(Atherosclerosis ~ Strain, cont2)
+anova(lm_mod)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Response: Atherosclerosis
+##           Df     Sum Sq    Mean Sq F value    Pr(&gt;F)    
+## Strain     2 4.0606e+10 2.0303e+10  9.0969 0.0002654 ***
+## Residuals 84 1.8747e+11 2.2318e+09                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+
+---
+# Load the paired continuous data
+
+HDL levels for each subject before and after treatment with some drug.
+
+
+```r
+cont3 &lt;- readxl::read_excel(
+  here::here("rstudio-demo", "data", "StatsDataSet-2C.xlsx"))
+cont3
+```
+
+```
+## # A tibble: 13 x 3
+##    Subject `Before drug` `After drug`
+##      &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+##  1       1            44           65
+##  2       2            55           74
+##  3       3            79           88
+##  4       4            97           95
+##  5       5            60           77
+##  6       6            87          102
+##  7       7            78           98
+##  8       8            83          105
+##  9       9            80           82
+## 10      10            78           96
+## 11      11            77           85
+## 12      12            68           79
+## 13      13            65           89
+```
+
+
+---
+# Wilcoxon signed-rank test
+
+We test the null hypothesis that there is no difference in HDL before versus after treatment.
+
+
+```r
+wilcox.test(cont3$`Before drug`, cont3$`After drug`, paired = TRUE)
+```
+
+```
+## Warning in wilcox.test.default(cont3$`Before drug`, cont3$`After drug`, : cannot
+## compute exact p-value with ties
+```
+
+```
+## 
+## 	Wilcoxon signed rank test with continuity correction
+## 
+## data:  cont3$`Before drug` and cont3$`After drug`
+## V = 1.5, p-value = 0.002358
+## alternative hypothesis: true location shift is not equal to 0
+```
+
+
+---
+# Paired t-test
+
+For demonstration purposes we also try the paired t-test without checking the normality assumption.
+
+
+```r
+t.test(cont3$`Before drug`, cont3$`After drug`, paired = TRUE)
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  cont3$`Before drug` and cont3$`After drug`
+## t = -6.372, df = 12, p-value = 3.546e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -18.993521  -9.314171
+## sample estimates:
+## mean of the differences 
+##               -14.15385
+```
+
+
+---
+# Tips
+
+- We always need to tell R where to find a variable.
+- If the function doesn't have a `data` argument available, then we need to use the format `dataset$variable`, which tells R to look in the dataset specified before the $ to find the variable.
+- Variable names with spaces must be referenced in back ticks or double quotes.
+- I prefer to "clean up" my variable names to avoid this:
+
+
+```r
+library(janitor)
+cont3_clean &lt;- clean_names(cont3)
+names(cont3)
+```
+
+```
+## [1] "Subject"     "Before drug" "After drug"
+```
+
+```r
+names(cont3_clean)
+```
+
+```
+## [1] "subject"     "before_drug" "after_drug"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

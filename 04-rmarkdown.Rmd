@@ -1,0 +1,87 @@
+class: inverse, center, middle
+# R Markdown
+
+
+---
+# How to get results out of R?
+
+Copy and paste is **not reproducible** and **prone to errors**.
+
+One of the benefits of RStudio is seamless integration of R Markdown.
+
+Go to File > New File > R Markdown...
+
+You will see options to create a:
+- Document
+- Presentation
+- Shiny
+- From Template 
+
+
+---
+# How to get results out of R?
+
+Demonstrate how to:
+- Create an R Markdown Word Document named "MMED R Markdown Demo"
+- Save the source file for later knitting
+
+
+---
+# The yaml
+
+The top part of the file, between the two sets of ---, is called the **yaml** header. 
+There are many options you can set here to format your document in specific ways, but it provides sensible and basic defaults. 
+
+The important thing to know about the yaml is that **spacing** and **returns** are very important and a common source of error.
+
+
+---
+# The document body
+
+The document comes pre-filled with some default information to get you started.
+
+Two main areas:
+1. Text written in markdown. Look up markdown options to see how to create headers, bold, italic, links, etc.
+2. Code written inside code chunks
+
+
+---
+# Default top code chunk
+
+````markdown
+`r ''````{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+````
+
+Things to note:
+
+- `setup` is the name of this code chunk. Can be used for code navigation.
+- `include=FALSE` tells R not to show the code or the results of the code in the resulting document. The code is still run and any results produced can be accessed by later code chunks.
+- `knitr::opts_chunk$set(echo = TRUE)` is setting some an option for all code chunks in this file
+- `echo = TRUE` means that code will be printed in the finished file. 
+- Alternatively, `echo = FALSE` would suppress code and only the results of code would be in the finished file.
+
+
+---
+# Entering text and code
+
+Demonstrate how to:
+- Delete out all default text and code except the top chunk
+- Insert a new R code chunk
+- Type some R code
+- Type some text, including inline R code
+
+
+---
+# Create the document
+
+Demonstrate how to:
+- Use the "Knit" button to create the output
+
+Read more here: [https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/)
+
+
+
+
+

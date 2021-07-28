@@ -148,7 +148,7 @@ And select the appropriate installer for your operating system.
 ---
 
 class: inverse, center, middle
-# Using RStudio
+# Using R and RStudio
 
 
 ---
@@ -162,7 +162,7 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 ---
 # Open R and take a look
 
-We'll see how to:
+Demonstrate how to:
 
 - Assign values to an object
 - Perform a function on that object
@@ -178,7 +178,7 @@ We'll see how to:
 ---
 # Open RStudio and take a look
 
-We'll see how to:
+Demonstrate how to:
 
 - Create a new R script
 - Add some code to it
@@ -307,7 +307,31 @@ Then install, for example, the {GenomicFeatures} package using the `install` fun
 ```r
 BiocManager::install("GenomicFeatures")
 ```
-    
+
+
+---
+# Side note: installing R packages
+
+- Installation is the first step. 
+- Once you have installed the package, you need to load it into your current R session for use. 
+- Only packages that have been loaded will be available in any given R session, and this needs to be done each time you start a fresh R session.
+
+Two methods:
+
+A call to `library()` loads the package for your entire R session.
+
+
+```r
+library(readxl)
+```
+
+Using `::` accesses the package only for a single function. Functions from the package will not be available for later use in your R session.
+
+
+```r
+readxl::read_excel("Myfilename")
+```
+
 
 ---
 # Loading data
@@ -473,7 +497,7 @@ cat1_mat
 - The rows and columns of a dataframe can be referenced by name or position within square brackets `[rows, columns]`
 - So `cat1[1, 2]` refers to the first row and second column
 - On the previous slide, `cat1[, 2:3]` refers to all rows (first argument left blank) and columns 2 through 3
-- Non-consecutive rows or columns could be referenced as, for example, `cat1[, c(1, 3)]` for all rows and the first and third column
+- Non-consecutive rows or columns could be referenced as, for example, `cat1[, c(1, 3)]` for all rows and the first and third column, where `c()` denotes a vector
 - `cat1[1, "Red hair"]` would give the "Red hair" column for the first row (i.e. Country = Irish)
 
 
@@ -525,7 +549,7 @@ chisq.test(x = cat1_mat)
 # Tips
 
 - Arguments are processed in order in R functions. 
-- You can supply the arguments in any order if you specify the names.
+- You can supply the arguments in any order if you specify the argument names.
 - If you do not specify the argument names, the arguments must be supplied in order
 
 Here are all of the arguments available for the `fisher.test()` function:
@@ -591,7 +615,7 @@ For such a small sample size (n=24) we would not expect normality to hold - we u
 hist(cont1$HDL)
 ```
 
-![](index_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -818,7 +842,7 @@ t.test(cont3$`Before drug`, cont3$`After drug`, paired = TRUE)
 - We always need to tell R where to find a variable.
 - If the function doesn't have a `data` argument available, then we need to use the format `dataset$variable`, which tells R to look in the dataset specified before the $ to find the variable.
 - Variable names with spaces must be referenced in back ticks or double quotes.
-- I prefer to "clean up" my variable names to avoid this:
+- I prefer to "clean up" my variable names to avoid this using the `clean_names()` function from the {janitor} package.
 
 
 ```r
@@ -855,6 +879,109 @@ names(cont3_clean)
 
 
 
+
+
+---
+
+class: inverse, center, middle
+# R Markdown
+
+
+---
+# How to get results out of R?
+
+Copy and paste is **not reproducible** and **prone to errors**.
+
+One of the benefits of RStudio is seamless integration of R Markdown.
+
+Go to File &gt; New File &gt; R Markdown...
+
+You will see options to create a:
+- Document
+- Presentation
+- Shiny
+- From Template 
+
+
+---
+# How to get results out of R?
+
+Demonstrate how to:
+- Create an R Markdown Word Document named "MMED R Markdown Demo"
+- Save the source file for later knitting
+
+
+---
+# The yaml
+
+The top part of the file, between the two sets of ---, is called the **yaml** header. 
+There are many options you can set here to format your document in specific ways, but it provides sensible and basic defaults. 
+
+The important thing to know about the yaml is that **spacing** and **returns** are very important and a common source of error.
+
+
+---
+# The document body
+
+The document comes pre-filled with some default information to get you started.
+
+Two main areas:
+1. Text written in markdown. Look up markdown options to see how to create headers, bold, italic, links, etc.
+2. Code written inside code chunks
+
+
+---
+# Default top code chunk
+
+````markdown
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+````
+
+Things to note:
+
+- `setup` is the name of this code chunk. Can be used for code navigation.
+- `include=FALSE` tells R not to show the code or the results of the code in the resulting document. The code is still run and any results produced can be accessed by later code chunks.
+- `knitr::opts_chunk$set(echo = TRUE)` is setting some an option for all code chunks in this file
+- `echo = TRUE` means that code will be printed in the finished file. 
+- Alternatively, `echo = FALSE` would suppress code and only the results of code would be in the finished file.
+
+
+---
+# Entering text and code
+
+Demonstrate how to:
+- Delete out all default text and code except the top chunk
+- Insert a new R code chunk
+- Type some R code
+- Type some text, including inline R code
+
+
+---
+# Create the document
+
+Demonstrate how to:
+- Use the "Knit" button to create the output
+
+Read more here: [https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/)
+
+
+
+
+
+
+
+---
+# Resources
+
+These slides were produced using the {xarigan} package and R Markdown in RStudio. 
+
+All associated code and files are available on GitHub: &lt;https://github.com/zabore/intro-to-r-rstudio&gt;
+
+The final slides are published on my website: &lt;http://www.emilyzabor.com/intro-to-r-rstudio&gt;
+
+Contact me at &lt;zabore2@ccf.org&gt; with questions or for help.
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

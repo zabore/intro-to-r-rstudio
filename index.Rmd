@@ -54,3 +54,20 @@ class: inverse, center, title-slide, middle
 ```{r child='03-rstudio-basic-stats.Rmd'}
 ```
 
+
+---
+```{r child='04-rmarkdown.Rmd'}
+```
+
+
+---
+# Resources
+
+These slides were produced using the {xarigan} package and R Markdown in RStudio. 
+
+All associated code and files are available on GitHub: <https://github.com/zabore/intro-to-r-rstudio>
+
+The final slides are published on my website: <http://www.emilyzabor.com/intro-to-r-rstudio>
+
+Contact me at <zabore2@ccf.org> with questions or for help.
+

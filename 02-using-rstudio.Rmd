@@ -1,5 +1,5 @@
 class: inverse, center, middle
-# Using RStudio
+# Using R and RStudio
 
 
 ---
@@ -13,7 +13,7 @@ The R Graphical User Interface (RGui) will contain a window labeled R Console. Y
 ---
 # Open R and take a look
 
-We'll see how to:
+Demonstrate how to:
 
 - Assign values to an object
 - Perform a function on that object
@@ -29,7 +29,7 @@ We'll see how to:
 ---
 # Open RStudio and take a look
 
-We'll see how to:
+Demonstrate how to:
 
 - Create a new R script
 - Add some code to it
@@ -149,7 +149,29 @@ Then install, for example, the {GenomicFeatures} package using the `install` fun
 ```{r eval = FALSE}
 BiocManager::install("GenomicFeatures")
 ```
-    
+
+
+---
+# Side note: installing R packages
+
+- Installation is the first step. 
+- Once you have installed the package, you need to load it into your current R session for use. 
+- Only packages that have been loaded will be available in any given R session, and this needs to be done each time you start a fresh R session.
+
+Two methods:
+
+A call to `library()` loads the package for your entire R session.
+
+```{r eval = FALSE}
+library(readxl)
+```
+
+Using `::` accesses the package only for a single function. Functions from the package will not be available for later use in your R session.
+
+```{r eval = FALSE}
+readxl::read_excel("Myfilename")
+```
+
 
 ---
 # Loading data

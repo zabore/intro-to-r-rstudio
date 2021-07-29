@@ -204,6 +204,7 @@ Demonstrate how to:
 - Get help by typing `?fnname` where `fnname` is the name of the function of interest
   
   - e.g. to see the help file for the mean function, type `?mean`
+  - Using `??fnname` can be used if you aren't sure of the exact function name and will return any keyword matches
 
 
 ---
@@ -355,13 +356,48 @@ mydf2 &lt;- read.csv("H:/MMED/intro-to-r-rstudio/rstudio-demo/data/StatsDataSet-
 
 
 ---
+# Loading data
+
+Demonstrate how to:
+
+- Load data with the previously detailed two approaches
+- See what datasets are loaded in your R session
+- View the data in the Viewer
+- View the data in the Console
+
+
+---
+# Loading data
+
+It's possible to load many other file types as well. Some included options:
+
+- `read.table()` is the most generic function and can read many file types
+- `read.csv()` is a special case with fixed defaults for comma-separated files
+- `read.csv2()` is a special case with fixed defaults for comma-separated files that were created in a country where commas are used in place of decimal places
+- `read.delim()` is a special case with fixed defaults for tab-delimited files
+- `read.delim2()` is a special case with fixed defaults for tab-delimited files that were created in a country where commas are used in place of decimal places
+
+An internet search will turn up many available options to load more specialized file types or data structures.
+
+
+---
 # R projects
 
 - Put all the files related to a single project (e.g. data, code, figures, notes, etc) in a designated folder. 
 - Okay to use subfolders as desired
-- Got to File &gt; New Project...
+- Go to File &gt; New Project...
 
 &lt;p align="center"&gt;&lt;img src="images/RStudio-create-project.png" width=50%&gt;
+
+
+---
+# R projects
+
+Demonstrate how to:
+
+- Create a new R project
+- See what project is active
+- Close the project
 
 
 ---
